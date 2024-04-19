@@ -38,12 +38,11 @@ public class User {
     public User() {
     }
 
-    public User(String password, String email, String username) {
+    public User(String password, String email, String username, boolean admin) {
         this.password = password;
         this.email = email;
         this.username = username;
+        this.admin = admin;
         this.createDateTime = new Date();
     }
-
-
 }

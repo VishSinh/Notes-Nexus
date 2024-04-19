@@ -42,8 +42,11 @@ public class AuthService {
         if (userRepository.existsByUsername(username)) throw new BadRequestException("Username already in use. Please login instead.");
 
         String passwordHash = Sha256HashGenerator.generateSha256Hash(password);
-        System.out.println("Password Hash: " + passwordHash);
-        User user = new User(passwordHash, email, username);
+
+        int noOfUsers = userRepository.findAll().size();
+        boolean isAdmin = noOfUsers == 0;
+
+        User user = new User(passwordHash, email, username, isAdmin);
 
         System.out.println("User: " + user.getUserId() + " " + user.getEmail() + " " + user.getUsername() + " " + user.getPassword());
 
