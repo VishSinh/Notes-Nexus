@@ -49,7 +49,6 @@ public class NotesService {
         activityLogsRepository.save(activityLog);
 
 
-
         return new HashMap<>(Map.of(
                 "note_id", note.getNoteId(),
                 "title", note.getTitle(),
