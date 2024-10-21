@@ -7,7 +7,8 @@ services:
     env_file:
       - .env
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - notes-net
 
@@ -17,12 +18,17 @@ services:
     environment:
       MYSQL_DATABASE: notes
       MYSQL_ALLOW_EMPTY_PASSWORD: true
-    expose:
+    ports:
       - 3306:3306
     networks:
       - notes-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
 
 networks:
   notes-net:
     driver: bridge
-
